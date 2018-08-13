@@ -1,0 +1,284 @@
+@charset "UTF-8";
+/* CSS Document */
+
+footer, #navbar {
+	font-family: 'Source Sans Pro',sans-serif;
+	margin: 0;
+	position: relative;
+}
+
+.footer, .footer:before, .footer:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#navbar, #navbar:before, #navbar:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}	
+
+footer, header, main, nav, #navbar div, .footer div {
+    display: block;
+}
+
+#navbar .tmp-container , .footer .tmp-container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#navbar .tmp-container a , .footer .tmp-container a {
+	text-decoration: none;
+    background: transparent;
+}
+#navbar .tmp-container a:-webkit-any-link {
+    cursor: auto;
+}
+#navbar .tmp-container:before, #navbar .tmp-container:after , .footer .tmp-container:before, .footer .tmp-container:after {
+    content: " ";
+    display: table;
+}
+#navbar .tmp-container:after ,.footer .tmp-container:after {
+    clear: both;
+}
+
+.footer hr {
+	width: 100%; 
+}
+
+/* header (only) nav */
+.header-nav {
+	background: #00264c;
+}
+
+.logo-header img {
+	margin-top: 8px;
+	margin-bottom: 8px;
+	border: 0;
+	max-width: 100%;
+	height: auto;
+}
+
+.header-search form {
+  float: right;
+  width: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  margin-left: 0;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.header-search input[type="search"] {
+	height: 30px;
+	width: 260px;
+	margin-top: 18px;
+}
+.header-search button[type="submit"] {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 15px;
+	border: 0;
+	color: #666;
+	background: transparent;
+	padding: 0;
+	width: 39px;
+	height: 39px;
+	margin-top: 21px;
+}
+
+#navbar input{line-height:normal}
+#navbar input[type="search"]{-webkit-appearance:textfield;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}
+#navbar input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+#navbar input,button{font-family:inherit;font-size:inherit;line-height:inherit}
+
+
+/* Always float the navbar header */
+.navbar-header {
+  float: left;
+}
+
+/* footer (only) css */
+
+.menu.nav {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.nav:before, .nav:after {
+   content: none;
+}
+footer.footer {
+	background: #00264c;
+	padding-bottom: 0px;
+	position: relative;
+	width: 100%;
+	border-top: 1px solid #E5E5E5;
+}
+
+footer.footer .footer-doi {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+footer.footer .footer-doi ul.menu li a {
+    padding: 5px 0px;
+    color: #ffffff;
+    float: left;
+    font-size: 12px;
+}
+
+footer.footer .footer-doi ul.menu li:first-of-type {
+    padding-left: 0px;
+}
+
+footer.footer .footer-doi ul.menu li {
+    float: left;
+    padding-right: 2px;
+    padding-left: 5px;
+}
+
+footer.footer .footer-doi ul.menu li:after {
+    content: "|";
+    color: #ffffff;
+    float: left;
+    padding-top: 5px;
+    padding-left: 7px;
+    font-size: 12px;
+}
+
+footer.footer .footer-doi ul.menu li:last-child:after {
+    content: "";
+}
+
+footer.footer .footer-wrap .menu.nav a {
+	padding: 4px 0px;
+	color: #ffffff;
+	font-size: 12px;
+}
+
+footer.footer .footer-icons {
+	color: #ffffff;
+	font-size: 12px;
+	padding-right: 0;
+}
+
+footer.footer .footer-icons ul {
+    float: right;
+    margin-top: 0px;
+}
+
+footer.footer .footer-icons ul li.follow {
+    padding-top: 6px;
+    padding-right: 5px;
+}
+
+footer.footer .footer-icons ul li {
+    float: left;
+    height: 24px;
+    margin: 0 2px;
+    list-style: none;
+    list-style-type: none;
+}
+
+footer.footer .footer-icons ul li:last-of-type {
+    margin-right: 0px;
+}
+
+footer.footer .footer-icons ul li a i {
+	color:#fff;
+	font-size: 24px;
+}
+
+/* Font Awesome Social Media icons */
+/*!
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+/* FONT PATH
+ * -------------------------- */
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../fonts/fontawesome-webfont.eot');
+  src: url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2') format('woff2'), url('../fonts/fontawesome-webfont.woff') format('woff'), url('../fonts/fontawesome-webfont.ttf') format('truetype'), url('../fonts/fontawesome-webfont.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.footer .fa-wrapper {
+	position: relative
+}
+#navbar .fa , .footer .fa {
+  display: inline-block;
+  /* COMMENTED OUT DUE TO BREAKING STACKED ICON FUNCTIONALITY*/
+  /*font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;*/
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.footer .fa-ul {
+  padding-left: 0;
+  margin-left: 2.14285714em;
+  list-style-type: none;
+}
+.footer .fa-ul > li {
+  position: relative;
+}
+.footer .fa-li {
+  position: absolute;
+  left: -2.14285714em;
+  width: 2.14285714em;
+  top: 0.14285714em;
+  text-align: center;
+}
+#navbar .fa-search:before {
+    content: "\f002";
+}
+.footer .fa-twitter-square:before {
+    content: "\f081";
+}
+.footer .fa-facebook-square:before {
+    content: "\f082";
+}
+.footer .fa-github:before {
+    content: "\f09b";
+}
+.footer .fa-google-plus-square:before {
+    content:"\f0d4"; 
+}
+.footer .fa-flickr:before {
+    content: "\f16e";
+}
+.footer .fa-youtube-play:before {
+    content: "\f16a";
+}
+.footer .fa-instagram:before {
+    content: "\f16d";
+}
+#navbar .only , .footer .only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+[role="button"]{cursor:pointer}
+
+.footer hr {
+   margin-top: 42px;
+}
+
+@media only screen and (max-width:490px) {
+    .footer hr {
+    margin-top: 60px;
+    }
+}

@@ -1,0 +1,75 @@
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        // Build the clock as a self-executing anonymous function to localize clock functionality
+        (function (sessionTimer, $, undefined)
+        {
+            var seconds = $('#sessionExpirationTime').val();
+            var endTime, hours, mins, remaining, time;
+            
+            sessionTimer.notify = function ()
+            {
+                // Send ajax call to update session expiration on server side
+                $.ajax({
+                    type: 'post',
+                    url: '<?= $this->basePath('session-update') ?>',
+                    cache: false,
+                    success: function ()
+                    {
+                    },
+                    error: function (xmlRequest, status, error)
+                    {
+                        if (error)
+                        {
+                            alert(error);
+                        }
+                    }
+                });
+            };
+            
+            sessionTimer.set = function ()
+            {
+                endTime = (+new Date) + 1000 * seconds + 500;
+            };
+            
+            sessionTimer.update = function ()
+            {
+                remaining = endTime - (+new Date);
+                
+                if (remaining < 1000) 
+                {
+                    // Redirect to the expiration page
+                    window.location = '<?= $this->basePath('logout') ?>';
+                } 
+                else 
+                {
+                    time = new Date(remaining);
+                    hours = time.getUTCHours();
+                    mins = time.getUTCMinutes();
+                    
+                    $('#sessionExpirationDisplay').html((hours ? hours + ':' + padNumber(mins, 2) : mins) + ':' + padNumber(time.getUTCSeconds(), 2));
+                    
+                    // Align the timeout event to the half-second to ensure a more steady "beat"
+                    setTimeout(sessionTimer.update, time.getUTCMilliseconds() + 500);
+                }
+            };
+        }(window.sessionTimer = window.sessionTimer || {}, jQuery));
+        
+        sessionTimer.set();
+        sessionTimer.update();
+        
+        $('#sessionExpirationRefresh').click(function ()
+        {
+            sessionTimer.set();
+            
+            sessionTimer.notify();
+        });
+    });
+</script>
+
+<div class="expirationClock">
+    <div id="sessionExpirationLabel">Page Expires In</div>
+    <div id="sessionExpirationDisplay"></div>
+    <i title="Refresh Timer" id="sessionExpirationRefresh" class="fas fa-sync"></i>
+    <input type="hidden" id="sessionExpirationTime" value="<?=$this->expirationSeconds?>" />
+</div>

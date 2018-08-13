@@ -1,0 +1,4 @@
+/src/vendor/
+/src/config/autoload/local-devmast.php
+/src/config/autoload/local-devsys.php
+/src/config/autoload/local-production.php

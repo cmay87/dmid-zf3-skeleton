@@ -1,0 +1,200 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?= $this->headTitle() ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+            ->prependStylesheet($this->basePath('css/common.css'))
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ?>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+            ->prependFile($this->basePath('js/base.js'))
+        ?>
+    </head>
+    <body>
+        <div id="pageLock">
+            <div id="pageLockBackground"></div>
+            <div id="pageLockText"><i class="fas fa-lg fa-sync fa-spin" style="margin-right: 5px;"></i><span id="pageLockTextContent"></span></div>
+        </div>
+        <!-- BEGIN USGS Applications Header Template -->
+        <header id="navbar" class="header-nav"  role="banner">
+          <div class="tmp-container">
+              <!-- primary navigation bar -->
+                        <!-- search bar-->
+              <div class="header-search">
+               <a class="logo-header" href="https://www.usgs.gov/" title="Home">
+                  <img class="img"  src="<?= $this->basePath() ?>/img/logo.png"  alt="Home" />
+                </a>
+              </div>
+              <!-- end search bar-->
+                </div> 
+                <!-- end header-container-->
+        </header>
+        <!-- END USGS Applications Header Template -->
+        <div id="titleBar" class="clearfix">
+            <div style="float: left;"><?= strip_tags($this->headTitle()) ?></div>
+            <div style="float: right; margin-right: 5px;"><?= ($this->identity() && $this->sessionTimer) ? '<div id="sessionCountdown">' . $this->sessionTimer . '</div>' : '' ?></div>
+        </div>
+        <div id="pageContainer" class="container">
+            <div id="toolbar" class="clearfix" style="display: block;">
+                <div class="collapse navbar-collapse">
+                    <?= $this->navigation('navigation')->menu() ?>
+                </div>
+                <div id="menuIcons">
+                    <?php if($this->identity()): ?>
+                        <i id="settingsIcon" class="fas fa-2x fa-user-cog" title="Settings"></i>
+                        <i id="profileIcon" class="fas fa-2x fa-user-circle" title="Profile"></i>
+                        <i id="logoutIcon" class="fas fa-2x fa-sign-out-alt" title="Logout"></i>
+                    <?php else: ?>
+                        <i id="loginIcon" class="fas fa-2x fa-sign-in-alt" title="Login"></i>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div id="pageContent">
+                <?= ($this->identity()) ? $this->partial('profile_overlay') : '' ?>
+                <?= $this->content ?>
+            </div>
+        </div>
+        <!-- BEGIN USGS Footer Template -->
+        <footer class="footer">
+            <div class="tmp-container">
+                <div class="footer-doi">
+                    <ul class="menu nav">
+                        <li class="first leaf menu-links menu-level-1"><a href="https://www.doi.gov/privacy">DOI Privacy Policy</a></li>
+                        <li class="leaf menu-links menu-level-1"><a href="https://www.usgs.gov/laws/policies_notices.html">Legal</a></li>
+                        <li class="leaf menu-links menu-level-1"><a href="https://www2.usgs.gov/laws/accessibility.html">Accessibility</a></li>
+                        <li class="leaf menu-links menu-level-1"><a href="https://www.usgs.gov/sitemap.html">Site Map</a></li>
+                        <li class="last leaf menu-links menu-level-1"><a href="https://answers.usgs.gov/">Contact USGS</a></li>
+                    </ul>    
+                </div>
+                <hr />
+
+                <div class="footer-doi">
+                    <ul class="menu nav">
+                        <li class="first leaf menu-links menu-level-1"><a href="https://www.doi.gov/">U.S. Department of the Interior</a></li>
+                        <li class="leaf menu-links menu-level-1"><a href="https://www.doioig.gov/">DOI Inspector General</a></li>
+                        <li class="leaf menu-links menu-level-1"><a href="https://www.whitehouse.gov/">White House</a></li>
+                        <li class="leaf menu-links menu-level-1"><a href="https://www.whitehouse.gov/omb/management/egov/">E-gov</a></li>
+                        <li class="leaf menu-links menu-level-1"><a href="https://www.doi.gov/pmb/eeo/no-fear-act">No Fear Act</a></li>
+                        <li class="last leaf menu-links menu-level-1"><a href="https://www2.usgs.gov/foia">FOIA</a></li>
+                    </ul>
+                </div>			
+                <div class="footer-icons">
+                    <ul>
+                        <?php /* if (Zend_Registry::get('isInternalUser')): ?> 
+                            <?php
+                               $d = Class_Global::getBuildConfig()->build->date;
+                               $build = Class_Global::getBuildConfig()->build->number;
+                               $buildUrl = Class_Global::getBuildConfig()->build->url;
+                            ?>
+                            <li>
+                                <span class="fa-stack fa-sm">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-terminal fa-stack-1x" title="Server: <?= exec('hostname') ?>"></i>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="fa-stack fa-sm">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-link fa-stack-1x" title="Page Last Modified: <?php echo substr($d,4,2) . '/' . substr($d,6,2) . '/' . substr($d,0,4); ?>"></i>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="fa-stack fa-sm">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-info fa-stack-1x" title="Zend Version: <?=Zend_Version::VERSION ?>"></i>
+                                </span>
+                            </li>
+                            <?php if($buildUrl): ?>
+                            <li>
+                                <span class="fa-stack fa-sm">
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    <i class="fa fa-wrench fa-stack-1x" title="Build Number: <?= $build ?>"></i>
+                                </span>
+                            </li>
+                            <?php endif; ?>
+                        <?php endif; */ ?>
+                    </ul>
+                </div>
+            </div>	
+        </footer>
+        <!-- END USGS Footer Template- -->
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKQR8KP"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+
+        <script async type="text/javascript" src="https://www2.usgs.gov/scripts/analytics/usa-search.js"></script>
+        <script type="text/javascript" src="https://www.google-analytics.com/analytics.js"></script>
+
+        <script type="text/javascript">
+            /*
+            try {
+                ga('set', 'anonymizeIp', true);
+
+                ga('create', 'UA-21295076-2', 'auto', {'name': 'lta'});
+
+                //Assuming this is what will be required once usgs analytics is updated
+                ga('lta.send', 'pageview');
+            } catch (exception) {
+                console.log(exception);
+            }*/
+
+            /*
+            $(document).ajaxSend(function(e,request,settings){
+                try { 
+                    //Assuming this is what will be required once usgs analytics is updated
+                    ga('lta.send', 'pageview', {'location': settings.url});
+                } catch (exception) {
+                    console.log(exception);
+                }
+            });*/
+    
+            <?php if($this->identity()): ?>
+                $('#logoutIcon').click(function()
+                {
+                    window.location = '<?= $this->basePath('/logout') ?>';
+                });
+                
+                $('#profileIcon').click(function()
+                {
+                    if ($('#profileOverlayContainer').is(':visible')) {
+                        $(this).css('color', '');
+                        $('#profileOverlayContainer').slideUp();
+                    } else {
+                        $(this).css('color', '#18202b');
+                        $('#profileOverlayContainer').slideDown();
+                    }
+                });                
+                
+                $('#settingsIcon').click(function()
+                {
+                    window.location = '<?= $this->basePath('settings') ?>';
+                });                
+            <?php else: ?>
+                $('#loginIcon').click(function()
+                {
+                    window.location = '<?= $this->basePath('login') ?>';
+                });
+            <?php endif; ?>
+        </script>        
+        <?= $this->inlineScript() ?>
+    </body>
+</html>

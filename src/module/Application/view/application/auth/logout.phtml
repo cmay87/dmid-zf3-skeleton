@@ -1,0 +1,11 @@
+<div style="padding: 10px 0; text-align: center;">
+    Your session has ended.
+    <br /><br />
+    <button id="loginButton">Login</button>
+</div>
+<script type="text/javascript">
+    $('#loginButton').click(function()
+    {
+        window.location = '<?= $this->basePath('login' . (($this->allowLogin) ? '?redirect' : '')) ?>';
+    });
+</script>

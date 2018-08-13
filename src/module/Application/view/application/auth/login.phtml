@@ -1,0 +1,21 @@
+<div style="padding: 10px 0; text-align: center;">
+    Short description of what DDS is should go here
+    <br /><br />
+    <strong>NOTES: </strong>Implement ERS redirect and SSO bootstrap event for authenticating from cookie
+    <br /><br >
+    This application requires a valid EROS Registration System (ERS) login. The login process will redirect you to the ERS authentication page to enter your credentials. 
+    <br /><br />
+    <?php if(!$this->allowLogin): ?>
+        Logins are currently disabled.
+    <?php else: ?>
+        <button id="loginButton">Login</button>
+    <?php endif; ?>
+</div>
+<?php if($this->allowLogin): ?>
+    <script type="text/javascript">
+        $('#loginButton').click(function()
+        {
+            window.location = '<?= $this->basePath('login?redirect') ?>';
+        });
+    </script>
+<?php endif; ?>
