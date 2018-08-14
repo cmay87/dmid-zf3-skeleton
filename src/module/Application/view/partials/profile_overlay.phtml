@@ -1,11 +1,16 @@
+<?php
+    $user = $this->identity();
+?>
+
 <div id="profileOverlayContainer">
     <div class="profileLine">
-        <strong>Username <a href="<?= $this->basePath('profile') ?>" target="_profile">(View Profile)</a></strong><div class="info">TODO - FROM IDENTITY</div>
+        <strong>Username <a href="<?= $this->basePath('profile') ?>" target="_profile">(View Profile)</a></strong><div class="info"><?= $user->getDisplayUsername() ?></div>
     </div>
+    <?php /*
     <div class="profileLine">
         <strong>Email</strong><div class="info">TODO - FROM IDENTITY</div>
-    </div>
+    </div>*/ ?>
     <div class="profileLine">
-        <strong>Access Role</strong><div class="info"><?= ucfirst($this->identity()->getRoleName()) ?></div>
+        <strong>Access Role</strong><div class="info"><?= ucfirst($this->identity()->getRoleKey()) ?></div>
     </div>
 </div>

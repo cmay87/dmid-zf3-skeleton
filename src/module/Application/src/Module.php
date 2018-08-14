@@ -209,7 +209,73 @@ class Module implements BootstrapListenerInterface
                     }
                 }, -10);
             
-                //Enforce ACL
+            //Check SSO
+            //TODO :: Make sure this isn't going to logout
+            if (true) {
+                $eventManager->attach(MvcEvent::EVENT_DISPATCH,
+                    function (MvcEvent $e) use ($serviceManager) {
+                        $authService = $serviceManager->get(\Zend\Authentication\AuthenticationService::class);
+                        $logger = $serviceManager->get('Logger');
+                        $sso = $serviceManager->get('ErsSSO');
+                        
+                        $errorUrl = null;
+                        
+                        try {
+                            if ($authService->hasIdentity() && $sso->isCookiePresent()) {
+                                if ($sso->validateCookie()) {
+                                    $user = $authService->getIdentity();
+
+                                    //We have a user, let's check the last modified date to see if we need to reload the user data
+                                    if (!$user->isUserDataCurrent($sso->getLastProfileUpdateTime())) {
+                                        //The profile has been updated, so authenticate the cookie again so we can grab the profile info
+                                        $sso->authenticateCookie();
+                                        $userInfo = $sso->getUser();
+
+                                        //Username/password/contact Id won't change so we don't need to update that
+                                        $user->setRoles($userInfo->roles);
+                                        $user->setUserModifiedDate($sso->getLastProfileUpdateTime());
+                                    }
+                                } else {
+                                    $logger->debug('Invalid SSO: ' . implode(',', $sso->getErrors()));
+
+                                    //The cookie wasn't authentic so get rid of the user session and kick the user out
+                                    $errorUrl = $e->getRequest()->getBaseUrl() . '/logout?sso-invalid';
+                                }
+                            } else {
+                                //Make sure we have a cookie
+                                if ($sso->isCookiePresent()) {
+                                    //Can we authenticate with the cookie?
+                                    if ($sso->authenticateCookie() === true) {
+                                        $adapter = new Authentication\Adapter($sso);
+                                        $adapter->setServiceManager($serviceManager);
+                                        
+                                        $authService->authenticate($adapter);
+                                    } else {
+                                        throw new \Exception('Authentication Failed');
+                                    }
+                                }
+                            }
+                        } catch (\Exception $ex) {
+                            $logger->debug($ex->getMessage());
+                            if ($sso !== null) {
+                                $logger->debug('SSO Errors: ' . implode(',', $sso->getErrors(true)));
+                                $sso->invalidateCookie();
+                            }
+                            
+                            $errorUrl = $e->getRequest()->getBaseUrl() . '/sso-error';
+                        }
+                        
+                        if ($errorUrl !== null) {
+                            $response = $e->getResponse();
+                            $response->setStatusCode(302);
+                            $response->getHeaders()->addHeaderLine('Location', $errorUrl);
+
+                            return $response;
+                        }
+                    }, 99);
+            }
+            
+            //Enforce ACL
             $eventManager->attach(MvcEvent::EVENT_DISPATCH,
                 function (MvcEvent $e) use ($serviceManager) {
                     $match       = $e->getRouteMatch();
@@ -225,7 +291,7 @@ class Module implements BootstrapListenerInterface
 
                     /* Check if user exists, if it has authenticated and set role */
                     if ($authService->hasIdentity()) {
-                        $role = $authService->getIdentity()->getRoleName();
+                        $role = $authService->getIdentity()->getRoleKey();
                     }
 
                     /* Valid ACL */

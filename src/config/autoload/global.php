@@ -22,8 +22,8 @@ return [
         'profileUri' => 'profile/'
     ],
     'log' => [
-        'consoleLogPath' => '/var/log/www/dds-' . APPLICATION_ENV . '-console.log',
-        'logPath' => '/var/log/www/dds-' . APPLICATION_ENV . '-http.log'
+        'consoleLogPath' => '/home/apache/logs/dds-' . APPLICATION_ENV . '-console.log',
+        'logPath' => '/home/apache/logs/dds-' . APPLICATION_ENV . '-http.log'
     ],
     'm2m' => [
         'endpoint' => 'https://earthexplorer.usgs.gov/inventory/json/v/1.4.1/',

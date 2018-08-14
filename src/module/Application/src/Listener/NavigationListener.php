@@ -27,7 +27,7 @@ class NavigationListener
 
         /* Check if user exists, if it has authenticated and set role */
         if ($authService->hasIdentity()) {
-            $role = $authService->getIdentity()->getRoleName();
+            $role = $authService->getIdentity()->getRoleKey();
         }
         
         $plugin->setAcl($serviceManager->get(\Application\Authentication\Acl::class));

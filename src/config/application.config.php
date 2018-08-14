@@ -70,6 +70,7 @@ return [
             'guest' => null,
             'user' => 'guest',
             'admin' => 'user',
+            'developer' => 'admin',
         ],
     ],
     'site' => [

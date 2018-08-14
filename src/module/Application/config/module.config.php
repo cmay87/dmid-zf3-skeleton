@@ -161,6 +161,16 @@ return [
                     ]
                 ]
             ],
+            'sso-error' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/sso-error[/]',
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'ssoerror'
+                    ],
+                ],
+            ], 
         ],
     ],
     'controllers' => [
@@ -224,7 +234,10 @@ return [
             \Zend\Authentication\AuthenticationService::class => Authentication\ServiceFactory::class,
             Authentication\Acl::class => Authentication\AclFactory::class,
             Listener\NavigationListener::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            'Encryption' => Authentication\EncryptionFactory::class,
+            'ErsSSO' => Authentication\ErsSSOFactory::class,
             'InventoryService' => Service\InventoryServiceFactory::class,
+            'UserIdentity' => Authentication\Identity\UserIdentityFactory::class,
         ],
     ],
     'view_manager' => [

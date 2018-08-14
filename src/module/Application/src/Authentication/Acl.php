@@ -94,6 +94,4 @@ class Acl extends ZendAcl implements LoggerAwareInterface {
         $this->serviceManager = $serviceManager;
         return $this;
     }
-
-    //put your code here
 }

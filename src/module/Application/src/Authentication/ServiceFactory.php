@@ -12,10 +12,9 @@ class ServiceFactory implements FactoryInterface
     {
         $config = $container->get('Configuration');
         
-        $adapter = new Adapter();
-        $storage = new \Zend\Authentication\Storage\Session($config['auth_storage_namespace']);        
+        $authService = new AuthenticationService();
+        $authService->setStorage(new \Zend\Authentication\Storage\Session($config['auth_storage_namespace']));        
         
-        //TODO :: add adapter with setAdapter
-        return new AuthenticationService($storage, $adapter);
+        return $authService;
     }
 }

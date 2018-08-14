@@ -23,9 +23,6 @@ class AuthController extends AbstractController
         
         //Redirect to ERS with a return path to where the user was attempting to nagivate to
         if ($configuration['allow_login'] && array_key_exists('redirect', $_REQUEST)) {
-            $authService = $this->getServiceManager()->get(\Zend\Authentication\AuthenticationService::class);
-            $authService->authenticate();
-
             $container = new Container('auth');
             $returnUrl = $container->returnTo;
             if (!$returnUrl) {
@@ -51,9 +48,8 @@ class AuthController extends AbstractController
         $session = $this->getServiceManager()->get(\Zend\Session\SessionManager::class);
         $session->forgetMe();
 
-        
-        
-        //TODO :: Invalidate the SSO object
+        $sso = $this->getServiceManager()->get('ErsSSO');
+        $sso->invalidateCookie();
         
         $configuration = $this->getServiceManager()->get('Configuration');
         
@@ -71,5 +67,13 @@ class AuthController extends AbstractController
         
         $configuration = $this->getServiceManager()->get('Configuration');
         return $this->redirect()->toUrl("{$configuration['ers']['basePath']}{$configuration['ers']['profileUri']}");
+    }
+    
+    public function ssoerrorAction()
+    {
+        $sso = $this->getServiceManager()->get('ErsSSO');
+        $sso->invalidateCookie();
+        
+        return new ViewModel();
     }
 }
