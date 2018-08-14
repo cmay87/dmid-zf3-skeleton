@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Service;
+namespace Application\Authentication;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;

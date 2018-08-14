@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Service;
+namespace Application\Authentication;
 
 use Zend\Log\LoggerInterface;
 use Zend\Log\LoggerAwareInterface;

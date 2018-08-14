@@ -222,7 +222,7 @@ return [
     'service_manager' => [
         'factories' => [
             \Zend\Authentication\AuthenticationService::class => Authentication\ServiceFactory::class,
-            Service\Acl::class => Service\AclFactory::class,
+            Authentication\Acl::class => Authentication\AclFactory::class,
             Listener\NavigationListener::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
             'InventoryService' => Service\InventoryServiceFactory::class,
         ],

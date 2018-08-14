@@ -229,7 +229,7 @@ class Module implements BootstrapListenerInterface
                     }
 
                     /* Valid ACL */
-                    $acl = $serviceManager->get(Service\Acl::class);
+                    $acl = $serviceManager->get(Authentication\Acl::class);
                     if (!$acl->isAllowed($role, $matchedController, $matchedAction)) {
                         $request = $e->getRequest();
                         $response = $e->getResponse();

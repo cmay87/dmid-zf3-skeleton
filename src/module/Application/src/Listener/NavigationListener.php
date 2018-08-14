@@ -30,7 +30,7 @@ class NavigationListener
             $role = $authService->getIdentity()->getRoleName();
         }
         
-        $plugin->setAcl($serviceManager->get(\Application\Service\Acl::class));
+        $plugin->setAcl($serviceManager->get(\Application\Authentication\Acl::class));
         $plugin->setRole($role);
     }
 }
